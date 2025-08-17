@@ -2,9 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Send, RotateCcw, Trash2 } from 'lucide-react';
-// Using CSS animations instead of Framer Motion for Next.js 15 compatibility
 import BackButton from '../components/BackButton';
-import { getJiminResponse, resetJiminResponses } from '@/app/lib/jiminChat';
 
 interface Message {
   id: string;
@@ -28,10 +26,10 @@ export default function ChatPage() {
         setMessages(JSON.parse(savedHistory));
       } catch (error) {
         console.error('Error loading chat history:', error);
-        initializeChat();
+        handleReset();
       }
     } else {
-      initializeChat();
+      handleReset();
     }
   }, []);
 
@@ -47,22 +45,23 @@ export default function ChatPage() {
     scrollToBottom();
   }, [messages]);
 
-  const initializeChat = () => {
+  const handleReset = () => {
     const initialMessage: Message = {
-      id: Date.now().toString(),
+      id: '1',
       text: "Hi ARMY! I'm Jimin. How can I help? 🥰",
       sender: 'jimin',
       timestamp: Date.now()
     };
     setMessages([initialMessage]);
+    localStorage.setItem('jiminChatHistory', JSON.stringify([initialMessage]));
   };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSendMessage = async () => {
-    if (!input.trim()) return;
+  const sendMessage = async () => {
+    if (!input.trim() || isTyping) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -71,47 +70,62 @@ export default function ChatPage() {
       timestamp: Date.now()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInput('');
     setIsTyping(true);
 
-    // Simulate typing delay
-    setTimeout(() => {
-      const jiminResponse = getJiminResponse(input.trim());
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage.text }),
+      });
+
+      const data = await response.json();
+      
       const jiminMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: jiminResponse,
+        text: data.reply,
         sender: 'jimin',
-        timestamp: Date.now() + 1
+        timestamp: Date.now()
       };
 
-      setMessages(prev => [...prev, jiminMessage]);
+      const updatedMessages = [...newMessages, jiminMessage];
+      setMessages(updatedMessages);
+      localStorage.setItem('jiminChatHistory', JSON.stringify(updatedMessages));
+    } catch (error) {
+      console.error('Chat API error:', error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm having trouble connecting right now, but I'm still here for you, ARMY! 💜",
+        sender: 'jimin',
+        timestamp: Date.now()
+      };
+      const updatedMessages = [...newMessages, errorMessage];
+      setMessages(updatedMessages);
+      localStorage.setItem('jiminChatHistory', JSON.stringify(updatedMessages));
+    } finally {
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000); // 1-2 second delay
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSendMessage();
+      sendMessage();
     }
   };
 
   const handleResetResponses = () => {
-    resetJiminResponses();
-    // Show a brief confirmation
-    const resetMessage: Message = {
-      id: Date.now().toString(),
-      text: "Responses reset! Ready for fresh chats. 😊",
-      sender: 'jimin',
-      timestamp: Date.now()
-    };
-    setMessages(prev => [...prev, resetMessage]);
+    handleReset();
   };
 
   const handleClearHistory = () => {
     localStorage.removeItem('jiminChatHistory');
-    initializeChat();
+    handleReset();
   };
 
   return (
@@ -208,7 +222,7 @@ export default function ChatPage() {
             disabled={isTyping}
           />
           <button
-            onClick={handleSendMessage}
+            onClick={sendMessage}
             disabled={!input.trim() || isTyping}
             className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl touch-target"
           >
