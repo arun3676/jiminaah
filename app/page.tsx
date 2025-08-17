@@ -67,11 +67,19 @@ export default function Home() {
                   <span>Track Promises</span>
                   <span className="transition-transform group-hover:translate-x-1">🎯</span>
                 </Link>
+                
+                <Link 
+                  href="/chat"
+                  className="group inline-flex items-center justify-center gap-3 rounded-full px-6 py-3 sm:px-8 sm:py-4 text-white font-bold bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 touch-target"
+                >
+                  <span>Chat with Jimin</span>
+                  <span className="transition-transform group-hover:translate-x-1">💜</span>
+                </Link>
               </div>
 
               {/* Small decorative text */}
               <p className="mt-6 text-xs sm:text-sm text-gray-500 font-medium">
-                Track moods • Find wisdom • Grow daily
+                Track moods • Find wisdom • Chat with Jimin • Grow daily
               </p>
             </div>
           </div>
