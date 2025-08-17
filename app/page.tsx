@@ -32,6 +32,11 @@ export default function Home() {
                   Vibes
                 </span>
               </h1>
+              
+              {/* Personal greeting */}
+              <p className="text-lg sm:text-xl font-semibold text-gray-700 mb-4">
+                Hello Keerthana 👋
+              </p>
 
               {/* Subtitle with icons */}
               <div className="flex items-center justify-center gap-2 mb-6">
