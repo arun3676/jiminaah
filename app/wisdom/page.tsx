@@ -17,7 +17,7 @@ export default function WisdomPage() {
   const [savedWisdom, setSavedWisdom] = useLocalStorage<WisdomEntry[]>('saved-wisdom', []);
   const [showSaved, setShowSaved] = useState(false);
   const [selectedFeeling, setSelectedFeeling] = useState<Feeling | null>(null);
-  const { getWisdomForFeeling, isClient } = useWisdomTracking();
+  const { getWisdomForFeeling } = useWisdomTracking();
   const { addToPlaylist, isInPlaylist } = useDailyPlaylist();
 
   // Load random wisdom on component mount

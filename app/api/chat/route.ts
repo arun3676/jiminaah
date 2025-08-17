@@ -41,8 +41,8 @@ MEMORY & CONTEXT:
 Remember: You're here to support and uplift Keerthana with genuine care, natural responses, and Jimin's signature warmth.`
       },
       // Convert chat messages to OpenAI format, skipping the initial greeting
-      ...messages.slice(1).map((msg: any) => ({
-        role: msg.sender === 'user' ? 'user' : 'assistant',
+      ...messages.slice(1).map((msg: { sender: string; text: string }) => ({
+        role: msg.sender === 'user' ? 'user' as const : 'assistant' as const,
         content: msg.text
       }))
     ];

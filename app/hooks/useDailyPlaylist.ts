@@ -17,31 +17,31 @@ export function useDailyPlaylist() {
     return new Date().toISOString().split('T')[0];
   };
 
-  const loadDailyPlaylist = () => {
-    if (typeof window === 'undefined') return;
-    
-    const today = getTodayString();
-    const stored = localStorage.getItem(`dailyPlaylist_${today}`);
-    
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setDailyPlaylist(parsed);
-      } catch (error) {
-        console.error('Error parsing daily playlist:', error);
+  useEffect(() => {
+    const loadDailyPlaylist = () => {
+      if (typeof window === 'undefined') return;
+      
+      const today = getTodayString();
+      const stored = localStorage.getItem(`dailyPlaylist_${today}`);
+      
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setDailyPlaylist(parsed);
+        } catch (error) {
+          console.error('Error parsing daily playlist:', error);
+          setDailyPlaylist([]);
+        }
+      } else {
         setDailyPlaylist([]);
       }
-    } else {
-      setDailyPlaylist([]);
-    }
-  };
+    };
 
-  useEffect(() => {
     setIsClient(true);
     if (typeof window !== 'undefined') {
       loadDailyPlaylist();
     }
-  }, [loadDailyPlaylist]);
+  }, []);
 
   const saveDailyPlaylist = (playlist: DailyPlaylistEntry[]) => {
     if (typeof window === 'undefined') return;
