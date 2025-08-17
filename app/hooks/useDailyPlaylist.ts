@@ -13,13 +13,6 @@ export function useDailyPlaylist() {
   const [isClient, setIsClient] = useState(false);
   const [dailyPlaylist, setDailyPlaylist] = useState<DailyPlaylistEntry[]>([]);
 
-  useEffect(() => {
-    setIsClient(true);
-    if (typeof window !== 'undefined') {
-      loadDailyPlaylist();
-    }
-  }, []);
-
   const getTodayString = () => {
     return new Date().toISOString().split('T')[0];
   };
@@ -42,6 +35,13 @@ export function useDailyPlaylist() {
       setDailyPlaylist([]);
     }
   };
+
+  useEffect(() => {
+    setIsClient(true);
+    if (typeof window !== 'undefined') {
+      loadDailyPlaylist();
+    }
+  }, []);
 
   const saveDailyPlaylist = (playlist: DailyPlaylistEntry[]) => {
     if (typeof window === 'undefined') return;

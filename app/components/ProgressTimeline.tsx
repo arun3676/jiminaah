@@ -47,7 +47,7 @@ export default function ProgressTimeline({ promise, viewType = 'line' }: Progres
   const timelineData = generateTimelineData();
   const completionRate = getCompletionRate(promise.history, 30);
   
-  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: any[]; label?: string }) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{payload: {date: string; completed: boolean; streak?: number}}>; label?: string }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       const date = new Date(data.date);
@@ -59,9 +59,9 @@ export default function ProgressTimeline({ promise, viewType = 'line' }: Progres
           <p className={`text-sm ${data.completed ? 'text-green-600' : 'text-gray-500'}`}>
             {data.completed ? '✅ Completed' : '⭕ Not completed'}
           </p>
-          {data.streak > 0 && (
-            <p className="text-sm text-orange-600">
-              🔥 Streak: {data.streak} days
+          {(data.streak || 0) > 0 && (
+            <p className="text-xs text-gray-600">
+              Streak: {data.streak || 0} days
             </p>
           )}
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Promise, PromiseStats, PromiseHistory } from '@/app/lib/promiseTypes';
+import { Promise, PromiseStats } from '@/app/lib/promiseTypes';
 
 export function usePromises() {
   const [promises, setPromises] = useState<Promise[]>([]);

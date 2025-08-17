@@ -123,7 +123,7 @@ export function getRandomInspiredSong(category: PromiseCategory): string {
   return songs[Math.floor(Math.random() * songs.length)];
 }
 
-export function calculateStreak(history: PromiseHistory[], frequency: 'daily' | 'weekly' | 'custom', customDays?: number): number {
+export function calculateStreak(history: PromiseHistory[], frequency: 'daily' | 'weekly' | 'custom'): number {
   if (history.length === 0) return 0;
 
   const today = new Date().toISOString().split('T')[0];

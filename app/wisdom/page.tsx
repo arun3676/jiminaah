@@ -12,7 +12,7 @@ import FeelingSelector from '../components/FeelingSelector';
 
 export default function WisdomPage() {
   const [input, setInput] = useState('');
-  const [wisdomResults, setWisdomResults] = useState<WisdomEntry[]>([]);
+  const [wisdom, setWisdom] = useState<WisdomEntry[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [savedWisdom, setSavedWisdom] = useLocalStorage<WisdomEntry[]>('saved-wisdom', []);
   const [showSaved, setShowSaved] = useState(false);
@@ -22,7 +22,7 @@ export default function WisdomPage() {
 
   // Load random wisdom on component mount
   useEffect(() => {
-    setWisdomResults(getRandomWisdom(3));
+    setWisdom(getRandomWisdom(3));
   }, []);
 
   const handleFeelingSelect = (feeling: Feeling) => {
@@ -32,7 +32,7 @@ export default function WisdomPage() {
     // Get exactly 2 wisdom entries for the selected feeling with non-repetition
     setTimeout(() => {
       const results = getWisdomForFeeling(feeling);
-      setWisdomResults(results);
+      setWisdom(results);
       setIsLoading(false);
     }, 800);
   };
@@ -67,7 +67,7 @@ export default function WisdomPage() {
         results = matchWisdomToInput(input);
       }
       
-      setWisdomResults(results);
+      setWisdom(results);
       setIsLoading(false);
     }, 800);
   };
@@ -93,7 +93,7 @@ export default function WisdomPage() {
   const handleGetRandomWisdom = () => {
     setIsLoading(true);
     setTimeout(() => {
-      setWisdomResults(getRandomWisdom(3));
+      setWisdom(getRandomWisdom(3));
       setIsLoading(false);
     }, 500);
   };
@@ -232,7 +232,7 @@ export default function WisdomPage() {
             )}
 
             {/* Wisdom Results */}
-            {!isLoading && wisdomResults.length > 0 && (
+            {!isLoading && wisdom.length > 0 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-gray-800 mb-2">Your Wisdom</h2>
@@ -242,18 +242,18 @@ export default function WisdomPage() {
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {wisdomResults.map((wisdom, index) => (
+                  {wisdom.map((wisdomEntry: WisdomEntry, index: number) => (
                     <div
-                      key={wisdom.id}
+                      key={wisdomEntry.id}
                       className="animate-fade-in"
                       style={{ animationDelay: `${index * 150}ms` }}
                     >
                       <WisdomCard
-                        wisdom={wisdom}
+                        wisdom={wisdomEntry}
                         onSave={handleSaveWisdom}
-                        isSaved={isWisdomSaved(wisdom.id)}
+                        isSaved={isWisdomSaved(wisdomEntry.id)}
                         onAddToPlaylist={handleAddToPlaylist}
-                        isInPlaylist={isInPlaylist(wisdom.id)}
+                        isInPlaylist={isInPlaylist(wisdomEntry.id)}
                       />
                     </div>
                   ))}

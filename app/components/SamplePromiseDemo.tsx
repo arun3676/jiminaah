@@ -6,7 +6,7 @@ import PromiseCard from './PromiseCard';
 import { Promise } from '@/app/lib/promiseTypes';
 
 export default function SamplePromiseDemo() {
-  const { promises, completePromise, deletePromise, isCompletedToday, isDueToday } = usePromises();
+  const { } = usePromises();
   const [showDemo, setShowDemo] = useState(false);
 
   // Sample promise for demonstration
