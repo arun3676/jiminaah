@@ -121,7 +121,7 @@ export default function JournalEntry({ entry, onUpdate, onDelete }: JournalEntry
             <textarea
               value={editNote}
               onChange={(e) => setEditNote(e.target.value)}
-              className="w-full h-24 p-3 rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-300 transition-all text-sm"
+              className="w-full h-24 p-3 rounded-xl border border-purple-300 bg-white/90 backdrop-blur-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400 transition-all text-sm text-gray-900 placeholder-gray-500"
               maxLength={300}
               autoFocus
             />

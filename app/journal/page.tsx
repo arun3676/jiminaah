@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { ArrowLeft, BookOpen, Plus } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, X, ArrowLeft, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import JournalList from '../components/JournalList';
 import QuickJournalForm from '../components/QuickJournalForm';
+import BottomNav from '../components/BottomNav';
+import BackButton from '../components/BackButton';
 import { useJournal } from '../hooks/useJournal';
 
 export default function JournalPage() {
@@ -33,14 +35,13 @@ export default function JournalPage() {
       <div className="hidden sm:block absolute bottom-60 left-20 w-2.5 h-2.5 bg-yellow-400/30 rounded-full blur-sm float" style={{animationDelay: '2s'}}></div>
       
       <div className="px-4 py-8">
+        {/* Back Button */}
+        <div className="absolute top-6 left-6 z-10">
+          <BackButton />
+        </div>
+
         {/* Header */}
-        <div className="flex items-center gap-3 mb-8">
-          <Link 
-            href="/mood-check-in"
-            className="p-2 rounded-full bg-white/80 backdrop-blur-sm border border-white/20 hover:bg-white/90 transition-all duration-200 shadow-lg touch-target"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-700" />
-          </Link>
+        <div className="flex items-center gap-3 mb-8 mt-8">
           <div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3 md:mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent leading-tight">
               Your Journal

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Sparkles, Send, Heart, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Sparkles, Heart, BookOpen, Music, Send } from 'lucide-react';
 import Link from 'next/link';
 import { matchWisdomToInput, getRandomWisdom, WisdomEntry, Feeling } from '../lib/wisdomDatabase';
 import { useLocalStorage } from '../lib/useLocalStorage';
@@ -9,6 +9,7 @@ import { useWisdomTracking } from '../hooks/useWisdomTracking';
 import { useDailyPlaylist } from '../hooks/useDailyPlaylist';
 import WisdomCard from '../components/WisdomCard';
 import FeelingSelector from '../components/FeelingSelector';
+import BackButton from '../components/BackButton';
 
 export default function WisdomPage() {
   const [input, setInput] = useState('');
@@ -100,16 +101,15 @@ export default function WisdomPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 p-6">
+      {/* Back Button */}
+      <div className="absolute top-6 left-6 z-10">
+        <BackButton />
+      </div>
+      
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Link 
-              href="/"
-              className="p-2 rounded-full bg-white/70 backdrop-blur-sm hover:bg-white/90 transition-all duration-200"
-            >
-              <ArrowLeft className="w-5 h-5 text-gray-700" />
-            </Link>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg">
               <Sparkles className="h-4 w-4" />
               Wisdom Translator

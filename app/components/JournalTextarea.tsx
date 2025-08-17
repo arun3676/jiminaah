@@ -52,7 +52,7 @@ export default function JournalTextarea({ mood, onSave, onCancel }: JournalTexta
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="e.g., Had coffee with a friend and we laughed so much! Grateful for these moments..."
-            className="w-full h-24 sm:h-32 p-4 rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-300 transition-all text-sm sm:text-base keyboard-avoiding"
+            className="w-full h-24 sm:h-32 p-4 rounded-xl border border-purple-300 bg-white/90 backdrop-blur-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400 transition-all text-sm sm:text-base text-gray-900 placeholder-gray-500 keyboard-avoiding"
             maxLength={MAX_NOTE_LENGTH}
             autoFocus
           />
