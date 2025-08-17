@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Sparkles, Heart, BookOpen, Music, Send } from 'lucide-react';
-import Link from 'next/link';
+import { Sparkles, Heart, Send } from 'lucide-react';
+import BackButton from '../components/BackButton';
 import { matchWisdomToInput, getRandomWisdom, WisdomEntry, Feeling } from '../lib/wisdomDatabase';
 import { useLocalStorage } from '../lib/useLocalStorage';
 import { useWisdomTracking } from '../hooks/useWisdomTracking';
 import { useDailyPlaylist } from '../hooks/useDailyPlaylist';
 import WisdomCard from '../components/WisdomCard';
 import FeelingSelector from '../components/FeelingSelector';
-import BackButton from '../components/BackButton';
 
 export default function WisdomPage() {
   const [input, setInput] = useState('');

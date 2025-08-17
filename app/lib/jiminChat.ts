@@ -48,7 +48,7 @@ const jiminResponses = [
       available = jiminResponses;
     }
     
-    let filtered = available.filter(resp => {
+    const filtered = available.filter(resp => {
       if (userInput.toLowerCase().includes('sad') || userInput.toLowerCase().includes('down')) {
         return resp.includes('stronger') || resp.includes('lost') || resp.includes('hardships');
       }

@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Plus, X, ArrowLeft, BookOpen } from 'lucide-react';
-import Link from 'next/link';
+import { useState, useRef } from 'react';
+import { Plus, BookOpen } from 'lucide-react';
 import JournalList from '../components/JournalList';
 import QuickJournalForm from '../components/QuickJournalForm';
-import BottomNav from '../components/BottomNav';
 import BackButton from '../components/BackButton';
 import { useJournal } from '../hooks/useJournal';
 

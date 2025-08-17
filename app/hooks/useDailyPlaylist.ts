@@ -41,7 +41,7 @@ export function useDailyPlaylist() {
     if (typeof window !== 'undefined') {
       loadDailyPlaylist();
     }
-  }, []);
+  }, [loadDailyPlaylist]);
 
   const saveDailyPlaylist = (playlist: DailyPlaylistEntry[]) => {
     if (typeof window === 'undefined') return;

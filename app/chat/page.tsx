@@ -218,7 +218,7 @@ export default function ChatPage() {
         
         {/* Helpful tip */}
         <p className="text-xs text-gray-500 text-center mt-2">
-          💜 Share your feelings with Jimin - he's here to support you!
+          💜 Share your feelings with Jimin - he&apos;s here to support you!
         </p>
       </div>
     </main>
