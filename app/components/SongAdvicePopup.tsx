@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { X, Music, Heart } from 'lucide-react';
 
 interface SongAdvicePopupProps {
@@ -54,22 +53,14 @@ export default function SongAdvicePopup({ mood, onClose }: SongAdvicePopupProps)
   if (!advice) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-        onClick={onClose}
+    <div
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in"
+      onClick={onClose}
+    >
+      <div
+        className="glass p-6 rounded-3xl border border-white/30 shadow-2xl max-w-md w-full mobile-modal animate-fade-in"
+        onClick={(e) => e.stopPropagation()}
       >
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.8, opacity: 0, y: 20 }}
-          transition={{ duration: 0.4, ease: "backOut" }}
-          className="glass p-6 rounded-3xl border border-white/30 shadow-2xl max-w-md w-full mobile-modal"
-          onClick={(e) => e.stopPropagation()}
-        >
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -129,8 +120,7 @@ export default function SongAdvicePopup({ mood, onClose }: SongAdvicePopupProps)
           {/* Decorative elements */}
           <div className="absolute top-4 right-16 w-2 h-2 bg-purple-400/40 rounded-full animate-pulse"></div>
           <div className="absolute bottom-8 left-8 w-1.5 h-1.5 bg-pink-400/40 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </div>
   );
 }

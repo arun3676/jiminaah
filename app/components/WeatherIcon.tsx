@@ -1,5 +1,4 @@
 import { MoodOption } from "@/app/types";
-import { motion } from "framer-motion";
 
 interface WeatherIconProps {
   option: MoodOption;
@@ -11,16 +10,9 @@ export default function WeatherIcon({ option, isSelected, onSelect }: WeatherIco
   const { icon: Icon, label, color } = option;
 
   return (
-    <motion.div
-      className="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group touch-target"
+    <div
+      className={`flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group touch-target transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${isSelected ? 'scale-110 -translate-y-1' : ''}`}
       onClick={onSelect}
-      whileHover={{ scale: 1.05, y: -2 }}
-      whileTap={{ scale: 0.95 }}
-      animate={{ 
-        scale: isSelected ? 1.1 : 1,
-        y: isSelected ? -4 : 0
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Main container - mobile optimized */}
       <div className={`relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl transition-all duration-500 touch-target ${
@@ -43,43 +35,16 @@ export default function WeatherIcon({ option, isSelected, onSelect }: WeatherIco
         
         {/* Selection indicator */}
         {isSelected && (
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="absolute -top-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg"
-          >
+          <div className="absolute -top-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-fade-in">
             <span className="text-white text-xs font-bold">✓</span>
-          </motion.div>
+          </div>
         )}
         
         {/* Floating particles - hidden on small screens */}
         {isSelected && (
           <>
-            <motion.div 
-              className="hidden sm:block absolute -top-1 -left-1 w-1.5 h-1.5 bg-purple-400 rounded-full"
-              animate={{ 
-                y: [-3, 3, -3],
-                opacity: [0.6, 1, 0.6]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.div 
-              className="hidden sm:block absolute -bottom-1 -right-1 w-1 h-1 bg-pink-400 rounded-full"
-              animate={{ 
-                y: [3, -3, 3],
-                opacity: [0.4, 0.8, 0.4]
-              }}
-              transition={{ 
-                duration: 2.5, 
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.5
-              }}
-            />
+            <div className="hidden sm:block absolute -top-1 -left-1 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" />
+            <div className="hidden sm:block absolute -bottom-1 -right-1 w-1 h-1 bg-pink-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}} />
           </>
         )}
       </div>
@@ -92,6 +57,6 @@ export default function WeatherIcon({ option, isSelected, onSelect }: WeatherIco
       }`}>
         {label}
       </span>
-    </motion.div>
+    </div>
   );
 }

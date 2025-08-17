@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Save, X, Smile } from 'lucide-react';
 import { MAX_NOTE_LENGTH } from '@/app/lib/journalTypes';
 import { moodOptions } from '@/app/lib/moods';
@@ -40,19 +39,12 @@ export default function QuickJournalForm({ onSave, onCancel }: QuickJournalFormP
   const remainingChars = MAX_NOTE_LENGTH - note.length;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 mobile-safe-area"
+    <div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 mobile-safe-area animate-fade-in"
       onClick={onCancel}
     >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        transition={{ duration: 0.3, ease: "backOut" }}
-        className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 w-full max-w-md shadow-2xl modal-content"
+      <div
+        className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 w-full max-w-md shadow-2xl modal-content animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -151,11 +143,7 @@ export default function QuickJournalForm({ onSave, onCancel }: QuickJournalFormP
             <span className="flex items-center justify-center gap-2">
               {isSaving ? (
                 <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
-                  />
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Saving...
                 </>
               ) : (
@@ -172,7 +160,7 @@ export default function QuickJournalForm({ onSave, onCancel }: QuickJournalFormP
         <p className="text-xs sm:text-sm text-gray-500 text-center mt-4">
           💡 Tip: Regular journaling helps track patterns in your mood and growth over time
         </p>
-      </motion.div>
+      </div>
 
       {/* Song Advice Popup */}
       {showAdvice && selectedMood && (
@@ -181,6 +169,6 @@ export default function QuickJournalForm({ onSave, onCancel }: QuickJournalFormP
           onClose={() => setShowAdvice(false)}
         />
       )}
-    </motion.div>
+    </div>
   );
 }

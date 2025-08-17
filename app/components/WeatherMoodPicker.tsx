@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import WeatherIcon from './WeatherIcon';
 import JournalTextarea from './JournalTextarea';
 import { useJournal } from '@/app/hooks/useJournal';
@@ -60,119 +59,59 @@ export default function WeatherMoodPicker() {
   return (
     <div className="w-full max-w-lg mx-auto">
       {/* Grid container with mobile optimization */}
-      <motion.div 
-        className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mood-grid"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.1
-            }
-          }
-        }}
-      >
+      <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mood-grid animate-fade-in">
         {moodOptions.map((option, index) => (
-          <motion.div
+          <div
             key={option.mood}
-            variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.8 },
-              visible: { 
-                opacity: 1, 
-                y: 0, 
-                scale: 1,
-                transition: {
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 20
-                }
-              }
-            }}
-            className="touch-target"
+            className="touch-target animate-fade-in"
+            style={{animationDelay: `${index * 0.1}s`}}
           >
             <WeatherIcon
               option={option}
               isSelected={selectedMood === option.label}
               onSelect={() => handleSelectMood(option.label)}
             />
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* Action button area - mobile optimized */}
       <div className="mt-6 md:mt-10 text-center h-16 md:h-20 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          {selectedMood && (
-            <motion.div
-              key={isSaved ? 'saved' : 'save'}
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.8 }}
-              transition={{ duration: 0.4, ease: "backOut" }}
-              className="w-full max-w-xs"
-            >
+        {selectedMood && (
+          <div className="w-full max-w-xs animate-fade-in">
               {!isSaved ? (
-                <motion.button 
+                <button 
                   onClick={handleSaveMood}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group w-full px-6 py-3 md:px-8 md:py-4 font-bold text-white rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 transition-all duration-300 shadow-xl hover:shadow-2xl glow touch-target"
+                  className="group w-full px-6 py-3 md:px-8 md:py-4 font-bold text-white rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 transition-all duration-300 shadow-xl hover:shadow-2xl glow touch-target hover:scale-105"
                 >
                   <span className="flex items-center justify-center gap-3">
                     <span className="text-base md:text-lg">Save Mood</span>
-                    <motion.span 
-                      className="text-lg md:text-xl"
-                      animate={{ rotate: [0, 10, -10, 0] }}
-                      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
-                    >
-                      ✨
-                    </motion.span>
+                    <span className="text-lg md:text-xl animate-pulse">✨</span>
                   </span>
-                </motion.button>
+                </button>
               ) : (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="glass px-6 py-3 md:px-8 md:py-4 rounded-full border border-white/30 shadow-xl"
-                >
+                <div className="glass px-6 py-3 md:px-8 md:py-4 rounded-full border border-white/30 shadow-xl animate-fade-in">
                   <div className="flex items-center justify-center gap-3 text-base md:text-lg font-bold">
-                    <motion.span
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 0.6, repeat: 2 }}
-                      className="text-xl md:text-2xl"
-                    >
-                      🎉
-                    </motion.span>
+                    <span className="text-xl md:text-2xl animate-bounce">🎉</span>
                     <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                       Vibe saved!
                     </span>
-                    <motion.span
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 0.6, repeat: 2, delay: 0.2 }}
-                      className="text-xl md:text-2xl"
-                    >
-                      ✨
-                    </motion.span>
+                    <span className="text-xl md:text-2xl animate-bounce" style={{animationDelay: '0.2s'}}>✨</span>
                   </div>
-                </motion.div>
+                </div>
               )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+          </div>
+        )}
       </div>
 
       {/* Journal Textarea */}
-      <AnimatePresence>
-        {showJournal && selectedMood && (
-          <JournalTextarea
-            mood={selectedMood}
-            onSave={handleJournalSave}
-            onCancel={handleJournalCancel}
-          />
-        )}
-      </AnimatePresence>
+      {showJournal && selectedMood && (
+        <JournalTextarea
+          mood={selectedMood}
+          onSave={handleJournalSave}
+          onCancel={handleJournalCancel}
+        />
+      )}
     </div>
   );
 }

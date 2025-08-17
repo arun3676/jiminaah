@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react';
 import { ArrowLeft, BookOpen, Plus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import JournalList from '../components/JournalList';
 import QuickJournalForm from '../components/QuickJournalForm';
@@ -71,27 +70,20 @@ export default function JournalPage() {
       </div>
 
       {/* Floating Add Button */}
-      <motion.button
+      <button
         onClick={() => setShowQuickForm(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center z-40 floating-add-button"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center z-40 floating-add-button hover:scale-110 animate-fade-in"
       >
         <Plus className="w-6 h-6" />
-      </motion.button>
+      </button>
 
       {/* Quick Journal Form Modal */}
-      <AnimatePresence>
-        {showQuickForm && (
-          <QuickJournalForm
-            onSave={handleQuickSave}
-            onCancel={() => setShowQuickForm(false)}
-          />
-        )}
-      </AnimatePresence>
+      {showQuickForm && (
+        <QuickJournalForm
+          onSave={handleQuickSave}
+          onCancel={() => setShowQuickForm(false)}
+        />
+      )}
     </main>
   );
 }
