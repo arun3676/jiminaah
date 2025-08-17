@@ -18,21 +18,6 @@ export interface WisdomEntry {
   dailyTip: string;
 }
 
-// Helper functions
-export function getRandomWisdom(count: number = 3): WisdomEntry[] {
-  const shuffled = [...wisdomDatabase].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-}
-
-export function matchWisdomToInput(input: string): WisdomEntry[] {
-  const searchTerm = input.toLowerCase();
-  const matches = wisdomDatabase.filter(entry => 
-    entry.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm)) ||
-    entry.message.toLowerCase().includes(searchTerm) ||
-    entry.category.toLowerCase().includes(searchTerm)
-  );
-  return matches.slice(0, 3);
-}
 
 export const wisdomDatabase: WisdomEntry[] = [
   // Happy entries
