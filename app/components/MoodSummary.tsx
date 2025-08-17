@@ -3,7 +3,6 @@
 import { useLocalStorage } from "@/app/lib/hooks/useLocalStorage";
 import { MoodEntry } from "@/app/types";
 import { moodOptions } from "@/app/lib/moods";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 
@@ -24,11 +23,7 @@ export default function MoodSummary() {
   const { icon: Icon, label, color } = lastMood;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="mt-12 p-8 rounded-3xl glass border border-white/30 shadow-2xl w-full max-w-md mx-auto relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
+    <div className="mt-12 p-8 rounded-3xl glass border border-white/30 shadow-2xl w-full max-w-md mx-auto relative overflow-hidden group hover:scale-[1.02] transition-all duration-500 animate-fade-in">
       
       {/* Background glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-purple-500/10 pointer-events-none"></div>
@@ -80,6 +75,6 @@ export default function MoodSummary() {
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Save, X } from 'lucide-react';
 import { MAX_NOTE_LENGTH } from '@/app/lib/journalTypes';
 
@@ -27,13 +26,7 @@ export default function JournalTextarea({ mood, onSave, onCancel }: JournalTexta
   const remainingChars = MAX_NOTE_LENGTH - note.length;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -20, scale: 0.95 }}
-      transition={{ duration: 0.4, ease: "backOut" }}
-      className="w-full max-w-lg mx-auto mt-6"
-    >
+    <div className="w-full max-w-lg mx-auto mt-6 animate-fade-in">
       <div className="glass p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/30 shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -89,11 +82,7 @@ export default function JournalTextarea({ mood, onSave, onCancel }: JournalTexta
             <span className="flex items-center justify-center gap-2">
               {isSaving ? (
                 <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
-                  />
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Saving...
                 </>
               ) : (
@@ -111,6 +100,6 @@ export default function JournalTextarea({ mood, onSave, onCancel }: JournalTexta
           💡 Tip: Reflect on what triggered this mood - it helps with self-awareness!
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }

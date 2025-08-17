@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Calendar, TrendingUp } from 'lucide-react';
 import { useJournal } from '@/app/hooks/useJournal';
 import JournalEntry from './JournalEntry';
@@ -11,11 +10,7 @@ export default function JournalList() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-8 h-8 border-2 border-purple-500/30 border-t-purple-500 rounded-full"
-        />
+        <div className="w-8 h-8 border-2 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
       </div>
     );
   }
@@ -116,17 +111,13 @@ export default function JournalList() {
 
       {/* Journal Entries */}
       <div className="space-y-6">
-        <AnimatePresence>
-          {Object.entries(groupedEntries)
-            .sort(([a], [b]) => b.localeCompare(a)) // Sort by date desc
-            .map(([date, dayEntries]) => (
-              <motion.div
-                key={date}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="space-y-3"
-              >
+        {Object.entries(groupedEntries)
+          .sort(([a], [b]) => b.localeCompare(a)) // Sort by date desc
+          .map(([date, dayEntries]) => (
+            <div
+              key={date}
+              className="space-y-3 animate-fade-in"
+            >
                 {/* Date header */}
                 <div className="flex items-center gap-3">
                   <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1"></div>
@@ -149,18 +140,13 @@ export default function JournalList() {
                       />
                     ))}
                 </div>
-              </motion.div>
-            ))}
-        </AnimatePresence>
+            </div>
+          ))}
       </div>
 
       {/* Encouraging message */}
       {totalEntries > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="glass p-4 rounded-2xl border border-white/30 text-center"
-        >
+        <div className="glass p-4 rounded-2xl border border-white/30 text-center animate-fade-in">
           <p className="text-sm text-gray-600">
             {recentStreak > 0 ? (
               <>🔥 You're on a {recentStreak}-day streak! Keep reflecting on your journey.</>
@@ -168,7 +154,7 @@ export default function JournalList() {
               <>✨ Every entry is a step toward self-awareness. Keep going!</>
             )}
           </p>
-        </motion.div>
+        </div>
       )}
     </div>
   );

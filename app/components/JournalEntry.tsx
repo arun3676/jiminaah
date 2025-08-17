@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Edit3, Trash2, Save, X, Calendar } from 'lucide-react';
 import { JournalEntry as JournalEntryType } from '@/app/lib/journalTypes';
 
@@ -75,13 +74,7 @@ export default function JournalEntry({ entry, onUpdate, onDelete }: JournalEntry
   };
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className="glass p-4 sm:p-5 rounded-2xl border border-white/30 shadow-lg"
-    >
+    <div className="glass p-4 sm:p-5 rounded-2xl border border-white/30 shadow-lg animate-fade-in">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
@@ -123,15 +116,8 @@ export default function JournalEntry({ entry, onUpdate, onDelete }: JournalEntry
       </div>
 
       {/* Note content */}
-      <AnimatePresence mode="wait">
-        {isEditing ? (
-          <motion.div
-            key="editing"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="space-y-3"
-          >
+      {isEditing ? (
+        <div className="space-y-3 animate-fade-in">
             <textarea
               value={editNote}
               onChange={(e) => setEditNote(e.target.value)}
@@ -156,37 +142,23 @@ export default function JournalEntry({ entry, onUpdate, onDelete }: JournalEntry
                 Save
               </button>
             </div>
-          </motion.div>
-        ) : (
-          <motion.p
-            key="viewing"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="text-gray-700 text-sm sm:text-base leading-relaxed"
-          >
-            {entry.note}
-          </motion.p>
-        )}
-      </AnimatePresence>
+        </div>
+      ) : (
+        <p className="text-gray-700 text-sm sm:text-base leading-relaxed animate-fade-in">
+          {entry.note}
+        </p>
+      )}
 
       {/* Delete confirmation modal */}
-      <AnimatePresence>
-        {showDeleteConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-            onClick={() => setShowDeleteConfirm(false)}
+      {showDeleteConfirm && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in"
+          onClick={() => setShowDeleteConfirm(false)}
+        >
+          <div
+            className="glass p-6 rounded-2xl border border-white/30 shadow-2xl max-w-sm w-full mobile-modal animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="glass p-6 rounded-2xl border border-white/30 shadow-2xl max-w-sm w-full mobile-modal"
-              onClick={(e) => e.stopPropagation()}
-            >
               <div className="text-center">
                 <div className="text-4xl mb-4">🗑️</div>
                 <h3 className="text-lg font-bold text-gray-800 mb-2">
@@ -210,10 +182,9 @@ export default function JournalEntry({ entry, onUpdate, onDelete }: JournalEntry
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
