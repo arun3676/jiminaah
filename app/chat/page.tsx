@@ -81,7 +81,7 @@ export default function ChatPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userMessage.text }),
+        body: JSON.stringify({ messages: newMessages }),
       });
 
       const data = await response.json();
