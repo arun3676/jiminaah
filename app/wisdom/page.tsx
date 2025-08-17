@@ -1,14 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Sparkles, Heart, Send } from 'lucide-react';
+import { BookOpen, Send, Sparkles, Heart } from 'lucide-react';
 import BackButton from '../components/BackButton';
-import { matchWisdomToInput, getRandomWisdom, WisdomEntry, Feeling } from '../lib/wisdomDatabase';
-import { useLocalStorage } from '../lib/useLocalStorage';
+import AudioClipPlayer from '../components/AudioClipPlayer';
+import { WisdomEntry, Feeling, getRandomWisdom, matchWisdomToInput } from '../lib/wisdomDatabase';
+import { useLocalStorage } from '../lib/hooks/useLocalStorage';
 import { useWisdomTracking } from '../hooks/useWisdomTracking';
 import { useDailyPlaylist } from '../hooks/useDailyPlaylist';
 import WisdomCard from '../components/WisdomCard';
 import FeelingSelector from '../components/FeelingSelector';
+import { getClipForMood } from '../lib/audioMappings';
 
 export default function WisdomPage() {
   const [input, setInput] = useState('');
@@ -257,6 +259,13 @@ export default function WisdomPage() {
                     </div>
                   ))}
                 </div>
+                
+                {/* Audio player for selected feeling */}
+                {selectedFeeling && (
+                  <div className="text-center mt-6">
+                    <AudioClipPlayer src={getClipForMood(selectedFeeling)} />
+                  </div>
+                )}
 
                 {/* Get More Wisdom Button */}
                 <div className="text-center mt-8">

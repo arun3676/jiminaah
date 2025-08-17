@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import WeatherIcon from './WeatherIcon';
 import JournalTextarea from './JournalTextarea';
+import AudioClipPlayer from './AudioClipPlayer';
 import { useJournal } from '@/app/hooks/useJournal';
 import { useLocalStorage } from "@/app/lib/hooks/useLocalStorage";
 import { MoodEntry } from "@/app/types";
 import { moodOptions } from '@/app/lib/moods';
+import { getClipForMood } from '@/app/lib/audioMappings';
 
 export default function WeatherMoodPicker() {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -97,6 +99,8 @@ export default function WeatherMoodPicker() {
                     </span>
                     <span className="text-xl md:text-2xl animate-bounce" style={{animationDelay: '0.2s'}}>✨</span>
                   </div>
+                  {/* Audio player for saved mood */}
+                  <AudioClipPlayer src={getClipForMood(selectedMood)} />
                 </div>
               )}
           </div>

@@ -5,15 +5,19 @@ import { Plus, BookOpen } from 'lucide-react';
 import JournalList from '../components/JournalList';
 import QuickJournalForm from '../components/QuickJournalForm';
 import BackButton from '../components/BackButton';
+import AudioClipPlayer from '../components/AudioClipPlayer';
 import { useJournal } from '../hooks/useJournal';
+import { getClipForMood } from '../lib/audioMappings';
 
 export default function JournalPage() {
   const [showQuickForm, setShowQuickForm] = useState(false);
+  const [lastSavedMood, setLastSavedMood] = useState<string | null>(null);
   const { addEntry } = useJournal();
   const journalListRef = useRef<HTMLDivElement>(null);
 
   const handleQuickSave = (mood: string, note: string) => {
     addEntry(mood, note);
+    setLastSavedMood(mood);
     setShowQuickForm(false);
     
     // Smooth scroll to top to show the new entry
@@ -23,6 +27,11 @@ export default function JournalPage() {
         block: 'start' 
       });
     }, 100);
+    
+    // Clear audio after 30 seconds
+    setTimeout(() => {
+      setLastSavedMood(null);
+    }, 30000);
   };
 
   return (
@@ -54,6 +63,13 @@ export default function JournalPage() {
         <div ref={journalListRef}>
           <JournalList />
         </div>
+
+        {/* Audio player for saved mood */}
+        {lastSavedMood && (
+          <div className="mt-6 text-center">
+            <AudioClipPlayer src={getClipForMood(lastSavedMood)} />
+          </div>
+        )}
 
         {/* Helpful tip */}
         <div className="mt-8 glass p-4 rounded-2xl border border-white/30 text-center">

@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Send, RotateCcw, Trash2 } from 'lucide-react';
 import BackButton from '../components/BackButton';
+import AudioClipPlayer from '../components/AudioClipPlayer';
+import { getClipForChat } from '../lib/audioMappings';
 
 interface Message {
   id: string;
@@ -15,6 +17,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [lastUserMessage, setLastUserMessage] = useState<string>('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -74,6 +77,7 @@ export default function ChatPage() {
     setMessages(newMessages);
     setInput('');
     setIsTyping(true);
+    setLastUserMessage(userMessage.text);
 
     try {
       const response = await fetch('/api/chat', {
@@ -206,6 +210,13 @@ export default function ChatPage() {
         )}
 
         <div ref={messagesEndRef} />
+        
+        {/* Audio player for chat context */}
+        {lastUserMessage && (
+          <div className="px-4 pb-2">
+            <AudioClipPlayer src={getClipForChat(lastUserMessage)} />
+          </div>
+        )}
       </div>
 
       {/* Input Area */}
