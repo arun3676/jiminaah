@@ -47,7 +47,7 @@ export default function ProgressTimeline({ promise, viewType = 'line' }: Progres
   const timelineData = generateTimelineData();
   const completionRate = getCompletionRate(promise.history, 30);
   
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: any[]; label?: string }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       const date = new Date(data.date);

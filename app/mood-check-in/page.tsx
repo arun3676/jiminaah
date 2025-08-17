@@ -1,12 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { moodOptions } from "@/app/lib/moods";
-import { useLocalStorage } from "@/app/lib/hooks/useLocalStorage";
-import { MoodEntry } from "@/app/types";
+import WeatherMoodPicker from '../components/WeatherMoodPicker';
+import MoodSummary from '../components/MoodSummary';
 import BottomNav from "@/app/components/BottomNav";
-import MoodSummary from "@/app/components/MoodSummary";
-import WeatherMoodPicker from "@/app/components/WeatherMoodPicker";
 export default function MoodCheckInPage() {
   return (
     <>
@@ -21,7 +17,7 @@ export default function MoodCheckInPage() {
             {/* Header - optimized for mobile */}
             <div className="mb-8 md:mb-12 animate-fade-in">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3 md:mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent leading-tight">
-                What's your weather?
+                What&apos;s your weather?
               </h1>
               <p className="text-base md:text-lg text-gray-600 font-medium px-4">
                 Choose the vibe that matches your inner climate today ✨

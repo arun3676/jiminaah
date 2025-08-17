@@ -23,7 +23,6 @@ export default function WeatherMoodPicker() {
   const handleSaveMood = () => {
     if (!selectedMood) return;
 
-    const selectedOption = moodOptions.find(opt => opt.label === selectedMood);
     const newEntry: MoodEntry = {
       mood: selectedMood,
       timestamp: Date.now(),

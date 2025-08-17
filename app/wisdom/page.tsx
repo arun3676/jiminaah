@@ -130,7 +130,7 @@ export default function WisdomPage() {
             Find Your Wisdom
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            Discover inspiration from Jimin and Taylor Swift's most uplifting songs
+            Discover inspiration from Jimin and Taylor Swift&apos;s most uplifting songs
           </p>
         </div>
 
@@ -201,7 +201,7 @@ export default function WisdomPage() {
                 <button
                   onClick={() => {
                     setInput("I'm feeling lost and need direction");
-                    handleSubmit(new Event('submit') as any);
+                    handleSubmit({} as React.FormEvent<HTMLFormElement>);
                   }}
                   disabled={isLoading}
                   className="px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm text-gray-700 hover:bg-white/90 transition-all duration-200 text-sm font-medium disabled:opacity-50"
@@ -211,7 +211,7 @@ export default function WisdomPage() {
                 <button
                   onClick={() => {
                     setInput("I want to feel more confident and authentic");
-                    handleSubmit(new Event('submit') as any);
+                    handleSubmit({} as React.FormEvent<HTMLFormElement>);
                   }}
                   disabled={isLoading}
                   className="px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm text-gray-700 hover:bg-white/90 transition-all duration-200 text-sm font-medium disabled:opacity-50"

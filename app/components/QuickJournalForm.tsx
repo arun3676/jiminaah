@@ -105,7 +105,7 @@ export default function QuickJournalForm({ onSave, onCancel }: QuickJournalFormP
         {/* Note Input */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-700 mb-3">
-            What's on your mind?
+            What&apos;s on your mind?
           </label>
           <div className="relative">
             <textarea

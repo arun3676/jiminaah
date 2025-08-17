@@ -69,7 +69,6 @@ export default function JournalList() {
   function calculateRecentStreak() {
     const dates = Object.keys(groupedEntries).sort().reverse();
     let streak = 0;
-    const today = new Date().toISOString().split('T')[0];
     
     for (let i = 0; i < dates.length; i++) {
       const expectedDate = new Date();
@@ -149,7 +148,7 @@ export default function JournalList() {
         <div className="glass p-4 rounded-2xl border border-white/30 text-center animate-fade-in">
           <p className="text-sm text-gray-600">
             {recentStreak > 0 ? (
-              <>🔥 You're on a {recentStreak}-day streak! Keep reflecting on your journey.</>
+              <>🔥 You&apos;re on a {recentStreak}-day streak! Keep reflecting on your journey.</>
             ) : (
               <>✨ Every entry is a step toward self-awareness. Keep going!</>
             )}

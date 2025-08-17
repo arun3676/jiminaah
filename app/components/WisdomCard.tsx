@@ -149,7 +149,7 @@ export default function WisdomCard({ wisdom, onSave, isSaved, onAddToPlaylist, i
         <div className="flex items-center gap-2">
           <div className="h-px flex-1 bg-white/30"></div>
           <span className="text-white/90 text-sm font-semibold px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm">
-            "{wisdom.song}"
+&ldquo;{wisdom.song}&rdquo;
           </span>
           <div className="h-px flex-1 bg-white/30"></div>
         </div>

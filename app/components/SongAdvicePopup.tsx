@@ -72,7 +72,7 @@ export default function SongAdvicePopup({ mood, onClose }: SongAdvicePopupProps)
                   Musical Wisdom
                 </h3>
                 <p className="text-sm text-gray-600">
-                  For when you're feeling {mood.toLowerCase()}
+                  For when you&apos;re feeling {mood.toLowerCase()}
                 </p>
               </div>
             </div>
