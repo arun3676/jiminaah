@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Send, RotateCcw, Trash2 } from 'lucide-react';
 import BackButton from '../components/BackButton';
 import AudioClipPlayer from '../components/AudioClipPlayer';
+import ChatAudioPlayer from '../components/ChatAudioPlayer';
 import { getClipForChat } from '../lib/audioMappings';
 
 interface Message {
@@ -134,34 +135,38 @@ export default function ChatPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex flex-col">
-      {/* Header with Back Button */}
-      <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm border-b border-purple-200/50">
-        <div className="flex items-center gap-3">
-          <BackButton />
-          <div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Chat with Jimin
-            </h1>
-            <p className="text-sm text-gray-600">Your personal BTS companion 💜</p>
+      {/* Header */}
+      <div className="bg-white/90 backdrop-blur-sm border-b border-purple-200/50 p-4 sticky top-0 z-10">
+        <div className="flex items-center justify-between max-w-4xl mx-auto">
+          <div className="flex items-center gap-3">
+            <BackButton />
+            <div>
+              <h1 className="text-xl font-bold text-gray-800">Chat with Jimin</h1>
+              <p className="text-sm text-gray-600">Your personal BTS companion 💜</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleResetResponses}
+              className="p-2 rounded-full hover:bg-purple-100 text-purple-600 transition-colors"
+              title="Reset Chat"
+            >
+              <RotateCcw className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleClearHistory}
+              className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
+              title="Clear History"
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
           </div>
         </div>
         
-        {/* Action buttons */}
-        <div className="flex gap-2">
-          <button
-            onClick={handleResetResponses}
-            className="p-2 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-600 transition-colors touch-target"
-            title="Reset responses"
-          >
-            <RotateCcw size={18} />
-          </button>
-          <button
-            onClick={handleClearHistory}
-            className="p-2 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 transition-colors touch-target"
-            title="Clear chat history"
-          >
-            <Trash2 size={18} />
-          </button>
+        {/* Audio Player */}
+        <div className="max-w-4xl mx-auto mt-3">
+          <ChatAudioPlayer src="/audio/jimin_so_lovely.mp3" title="Jimin - So Lovely" />
         </div>
       </div>
 
