@@ -260,12 +260,6 @@ export default function WisdomPage() {
                   ))}
                 </div>
                 
-                {/* Audio player for selected feeling */}
-                {selectedFeeling && (
-                  <div className="text-center mt-6">
-                    <AudioClipPlayer src={getClipForMood(selectedFeeling)} />
-                  </div>
-                )}
 
                 {/* Get More Wisdom Button */}
                 <div className="text-center mt-8">

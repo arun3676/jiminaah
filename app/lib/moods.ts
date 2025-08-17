@@ -16,12 +16,6 @@ export const moodOptions: MoodOption[] = [
     color: "text-yellow-500",
   },
   {
-    mood: "cloudy",
-    label: "Calm",
-    icon: Cloud,
-    color: "text-gray-500",
-  },
-  {
     mood: "rainy",
     label: "Sad",
     icon: CloudRain,

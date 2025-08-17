@@ -59,8 +59,8 @@ export default function WeatherMoodPicker() {
 
   return (
     <div className="w-full max-w-lg mx-auto">
-      {/* Grid container with mobile optimization */}
-      <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mood-grid animate-fade-in">
+      {/* Grid container with mobile optimization - now 5 items */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mood-grid animate-fade-in">
         {moodOptions.map((option, index) => (
           <div
             key={option.mood}

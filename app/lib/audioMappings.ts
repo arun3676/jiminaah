@@ -1,31 +1,10 @@
 export const audioMappings: Record<string, string> = {
-  // Happy/Positive moods
-  Joyful: '/audio/bts_serendipity_2.mp3',
-  Happy: '/audio/bts_serendipity_2.mp3',
-  Excited: '/audio/jimin_so_lovely.mp3',
-  Hopeful: '/audio/bts_serendipity_2.mp3',
-  
-  // Calm/Peaceful moods
-  Calm: '/audio/jimin_so_lovely.mp3',
-  Peaceful: '/audio/jimin_so_lovely.mp3',
-  Grateful: '/audio/jimin_so_lovely.mp3',
-  
-  // Sad/Down moods
-  Sad: '/audio/olivia_rodrigo_vampire.mp3',
-  Depressed: '/audio/olivia_rodrigo_vampire.mp3',
-  Lonely: '/audio/olivia_rodrigo_vampire.mp3',
-  Mixed: '/audio/olivia_rodrigo_vampire.mp3',
-  
-  // Angry/Anxious moods
-  Angry: '/audio/good_4_you.mp3',
-  Anxious: '/audio/good_4_you.mp3',
-  Confused: '/audio/good_4_you.mp3',
-  Overwhelmed: '/audio/good_4_you.mp3',
-  
-  // Empowered/Motivated moods
-  Empowered: '/audio/jimin_filter.mp3',
-  Motivated: '/audio/jimin_filter.mp3',
-  Resilient: '/audio/good_4_you.mp3'
+  // 5 Core Vibes with specific audio clips
+  Joyful: '/audio/bts_serendipity_2.mp3',        // Uplifting, hopeful BTS track
+  Sad: '/audio/olivia_rodrigo_vampire.mp3',      // Melancholic, emotional track
+  Angry: '/audio/good_4_you.mp3',               // Energetic, empowering track
+  Peaceful: '/audio/jimin_filter.mp3',          // Calm, introspective Jimin track  
+  Anxious: '/audio/jimin_iamhere.mp3',          // Comforting, reassuring "I am here" track
 };
 
 export function getClipForMood(mood: string): string {
